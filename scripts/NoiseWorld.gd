@@ -1,7 +1,7 @@
 extends Spatial
 
 var terrain : VoxelTerrain
-var stream = VoxelGenerator_DF.new()
+var stream = VoxelGeneratorDF.new()
 #var stream = preload("res://VoxelGenerator_DF.cs").new()
 
 const MATERIAL = preload("res://materials/grass-rock.material")
@@ -11,7 +11,6 @@ const BIOME = preload("res://region2-00250-01-01-bm.png")
 #const Generator = preload("res://VoxelGenerator_DF.cs").new()
 var water_types = ["ocean", "lake"]
 var area_radius = 2
-
 
 func _ready():
 	terrain = $VoxelTerrain
@@ -32,7 +31,7 @@ func _ready():
 		var name_def : PoolStringArray = split[0].rsplit(" ", false, 1)
 		if name_def.size() > 1:
 			data.name = name_def[1]
-			data.modifiers = name_def[0].split(" ")
+			#data.modifiers = name_def[0].split(" ")
 		else:
 			data.name = name_def[0]			
 		var color_array = split[1].lstrip('()').rstrip(')').split(',')
@@ -43,7 +42,8 @@ func _ready():
 		var b = int(color_array[2])
 		var color = Color8(r, g, b)
 		data.voxel_type = i
-		stream.biome_dictionary[color] = data
+		stream.BiomeCount += 1
+		stream._set("biome_data/%d" % (stream.BiomeCount - 1), data)
 		terrain.voxel_library.voxel_count += 1
 		var voxel = terrain.voxel_library.create_voxel(i, data.name)
 		voxel.material_id = 0

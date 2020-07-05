@@ -1,0 +1,13 @@
+[package]
+name = "tribal_life"
+version = "0.1.0"
+authors = ["Karsten Bock <KarstenBock@gmx.net>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+gdnative = { path = "../../godot-rust/gdnative" }
+euclid = "0.20.13"
+[lib]
+crate-type = ["cdylib"]

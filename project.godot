@@ -11,6 +11,11 @@ config_version=4
 _global_script_classes=[ {
 "base": "Resource",
 "class": "BiomeData",
+"language": "NativeScript",
+"path": "res://BiomeData.gdns"
+}, {
+"base": "Resource",
+"class": "BiomeDatas",
 "language": "GDScript",
 "path": "res://scripts/BiomeData.gd"
 }, {
@@ -29,6 +34,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/terrain_definition.gd"
 }, {
+"base": "Resource",
+"class": "Test",
+"language": "GDScript",
+"path": "res://test.gd"
+}, {
+"base": "VoxelGenerator",
+"class": "VoxelGeneratorDF",
+"language": "NativeScript",
+"path": "res://VoxelGeneratorDF.gdns"
+}, {
 "base": "VoxelGenerator",
 "class": "VoxelGenerator_DF",
 "language": "GDScript",
@@ -36,9 +51,12 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BiomeData": "",
+"BiomeDatas": "",
 "Building": "",
 "CubeTerrainDefinition": "",
 "TerrainDefinition": "",
+"Test": "",
+"VoxelGeneratorDF": "",
 "VoxelGenerator_DF": ""
 }
 
@@ -47,6 +65,10 @@ _global_script_class_icons={
 config/name="Tribal Life"
 run/main_scene="res://Map.tscn"
 config/icon="res://icon.png"
+
+[gdnative]
+
+singletons=[  ]
 
 [input]
 

@@ -37,7 +37,7 @@ func update_mesh():
 				cube.material = SpatialMaterial.new()
 				cube.material.albedo_color = Color.white
 				instance.mesh = cube
-				var cube_id = "%d,%d,%d" % [adjusted_x, adjusted_y, adjusted_z]
+				var cube_id = Vector3(adjusted_x, adjusted_y, adjusted_z)
 				cubes[cube_id] = cube
 				spatial.add_child(instance)
 				if center == Vector3(adjusted_x, adjusted_y, adjusted_z):
@@ -54,7 +54,7 @@ func update_mesh():
 
 func check_terrain_and_update_blocks(var start: Vector3, var v_tool: VoxelTool) -> bool:
 	var start_position = start
-	var valid = true
+	is_valid = true
 	var min_x = location.x
 	var max_x = location.x + size.x
 	
@@ -63,6 +63,7 @@ func check_terrain_and_update_blocks(var start: Vector3, var v_tool: VoxelTool) 
 
 	var min_z = location.z
 	var max_z = location.z + size.z
+	invalid_blocks.clear()
 	for x in range(min_x, max_x):
 		for y in range(min_y, max_y):
 			for z in range(min_z, max_z):
@@ -70,7 +71,7 @@ func check_terrain_and_update_blocks(var start: Vector3, var v_tool: VoxelTool) 
 				var adjusted_y = y - center.y
 				var adjusted_z = z - center.z
 				var position = start_position + Vector3(adjusted_x, adjusted_y, adjusted_z)
-				var cube_id = "%d,%d,%d" % [adjusted_x, adjusted_y, adjusted_z]
+				var cube_id = Vector3(adjusted_x, adjusted_y, adjusted_z)
 				var cube = cubes[cube_id]
 				var v_id = v_tool.get_voxel(position)
 				var block_valid = true
@@ -80,12 +81,13 @@ func check_terrain_and_update_blocks(var start: Vector3, var v_tool: VoxelTool) 
 					block_valid = !self.invalid_voxels.has(v_id)
 				if !block_valid:
 					cube.material.albedo_color = Color.red
+					invalid_blocks.append(cube_id)
 				else:
 					cube.material.albedo_color = Color.green	
 					cube.material.albedo_color.a = 0.1
 					cube.material.flags_transparent = true
-				valid = valid && block_valid
-	return valid
+				is_valid = is_valid && block_valid
+	return is_valid
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
